@@ -34,11 +34,17 @@ const orderSchema = new mongoose.Schema({
   },
 
   invoice: {
-    orderTotal: { type: Number, required: true },
+    transactionId: { type: String, required: true }, 
+    transactionDate: { type: Date, required: true, default: Date.now }, 
+    orderTotal: { type: Number, required: true }, 
+    paymentsCredits: { type: Number, default: 0 }, 
+    balanceDue: { type: Number, required: true }, 
+    billingAddress: { type: String, required: true }, 
     orderProducts: [
       {
         productName: { type: String, required: true },
-        quantity: { type: Number, required: true }
+        quantity: { type: Number, required: true },
+        price: { type: Number, required: true } 
       }
     ]
   },
