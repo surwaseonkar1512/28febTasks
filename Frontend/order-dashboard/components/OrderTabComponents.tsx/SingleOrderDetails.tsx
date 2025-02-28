@@ -1,8 +1,13 @@
+"use client";
 import React from "react";
 import { FaPrint, FaPhone, FaEnvelope } from "react-icons/fa";
 import SingleOrderTab from "./SingleOrderTab";
 
 type Order = {
+  createdAt: string | number | Date;
+  accountManagerName: string;
+  orderPlacedBy: string;
+  customerInfo: any;
   orderId?: string;
   orderType?: string;
   entityType?: string;
@@ -26,11 +31,11 @@ const SingleOrderDetails = ({ selectedOrder }: Props) => {
   }
 
   return (
-    <div>
+    <div className="space-y-4">
       <div className="border border-gray-300 rounded-lg shadow-md bg-white p-4">
         {/* Order Header */}
-        <div className="flex justify-between items-center pb-3 border-b">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-center pb-3 border-b">
+          <div className="text-center md:text-left">
             <h2 className="text-lg font-bold">
               ORDER-ID {selectedOrder.orderId ?? "N/A"}
             </h2>
@@ -38,14 +43,16 @@ const SingleOrderDetails = ({ selectedOrder }: Props) => {
               {selectedOrder.entityName ?? "N/A"}
             </p>
           </div>
-          <button className="flex items-center gap-1 bg-gray-100 px-3 py-1 rounded-md">
+          <button className="flex items-center gap-1 bg-gray-100 px-3 py-1 rounded-md mt-2 md:mt-0">
             <FaPrint />
             Print
           </button>
         </div>
 
-        <div className="flex flex-row items-start justify-between gap-3">
-          <div className="border border-gray-300 w-[70%] grid grid-cols-4 gap-4 mt-3 p-3">
+        {/* Order Information */}
+        <div className="flex flex-col md:flex-row items-start justify-between gap-3 mt-3">
+          {/* Details Grid */}
+          <div className="border border-gray-300 w-full md:w-[70%] grid grid-cols-1 md:grid-cols-4 gap-4 p-3">
             <div>
               <p className="text-gray-800 text-[14px] font-bold">Order Type</p>
               <p className="text-gray-600 text-[12px]">
@@ -67,8 +74,8 @@ const SingleOrderDetails = ({ selectedOrder }: Props) => {
             <div>
               <p className="text-gray-800 text-[14px] font-bold">Order Date</p>
               <p className="text-gray-600 text-[12px]">
-                {selectedOrder.orderDate
-                  ? new Date(selectedOrder.orderDate).toLocaleDateString()
+                {selectedOrder.createdAt
+                  ? new Date(selectedOrder.createdAt).toLocaleDateString()
                   : "N/A"}
               </p>
             </div>
@@ -93,7 +100,7 @@ const SingleOrderDetails = ({ selectedOrder }: Props) => {
                 Order Placed By
               </p>
               <p className="text-gray-600 text-[12px]">
-                {selectedOrder.placedBy ?? "N/A"}
+                {selectedOrder.orderPlacedBy ?? "N/A"}
               </p>
             </div>
             <div>
@@ -101,12 +108,13 @@ const SingleOrderDetails = ({ selectedOrder }: Props) => {
                 Account Manager
               </p>
               <p className="text-gray-600 text-[12px]">
-                {selectedOrder.accountManager ?? "N/A"}
+                {selectedOrder.accountManagerName ?? "N/A"}
               </p>
             </div>
           </div>
 
-          <div className="w-[30%] border border-gray-300 p-4 mt-3 flex items-center">
+          {/* Contact Information */}
+          <div className="w-full md:w-[30%] border border-gray-300 p-4 flex items-center">
             <div className="bg-purple-500 text-white w-12 h-12 flex items-center justify-center rounded-full text-lg">
               {selectedOrder.placedBy
                 ? selectedOrder.placedBy[0].toUpperCase()
@@ -114,21 +122,22 @@ const SingleOrderDetails = ({ selectedOrder }: Props) => {
             </div>
             <div className="ml-3">
               <p className="text-gray-600 text-[12px]">
-                {selectedOrder.placedBy ?? "N/A"}
+                {selectedOrder.customerInfo?.name ?? "N/A"}
               </p>
               <p className="text-[12px] flex items-center gap-2">
                 <FaPhone className="text-blue-600" />{" "}
-                {selectedOrder.contactPhone ?? "N/A"}
+                {selectedOrder.customerInfo?.email ?? "N/A"}
               </p>
               <p className="text-[12px] flex items-center gap-2">
                 <FaEnvelope className="text-blue-600" />{" "}
-                {selectedOrder.contactEmail ?? "N/A"}
+                {selectedOrder.customerInfo?.phone ?? "N/A"}
               </p>
             </div>
           </div>
         </div>
       </div>
-      <SingleOrderTab />
+
+      <SingleOrderTab selectedOrder={selectedOrder} />
     </div>
   );
 };

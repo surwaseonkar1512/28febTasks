@@ -5,15 +5,15 @@ type Props = {};
 
 const OrderHeader = (props: Props) => {
   return (
-    <div className="flex items-center justify-between p-6 bg-white shadow-md rounded-md">
+    <div className="flex md:flex-row flex-col gap-5 items-center justify-between p-6 bg-white shadow-md rounded-md">
       <div className="flex flex-col items-start">
         <h2 className="text-[22px] font-semibold text-gray-900">Orders</h2>
         <p className="text-gray-600">Manage your orders here</p>
       </div>
 
-      <div className="flex items-center gap-4">
+      <div className="flex md:flex-row flex-col items-center gap-4">
         <Link
-          href={"/createOrder"}
+          href="/createOrder"
           className="px-4 py-2 border border-gray-700 text-black rounded-md shadow transition cursor-pointer"
         >
           + Create Order

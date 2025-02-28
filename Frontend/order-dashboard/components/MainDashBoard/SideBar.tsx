@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Home, Package, Building, Users, HelpCircle } from "lucide-react";
 import Dashboard from "./Dashboard";
 import EmptyComponent from "./EmptyComponent";
@@ -16,14 +16,16 @@ const Sidebar = () => {
   ];
 
   return (
-    <div className=" grid grid-cols-12 gap-3">
-      <div className="bg-white shadow-md h-screen w-full transition-all duration-300 p-4 flex flex-col col-span-1">
-        <nav className="flex-1 space-y-4">
+    <div className="flex flex-col md:grid md:grid-cols-12 gap-3">
+      <div className="bg-white shadow-md w-full transition-all duration-300 p-4 flex flex-row md:flex-col items-center justify-around md:justify-start md:col-span-1">
+        <nav className="flex flex-row md:flex-col space-x-4 md:space-x-0 md:space-y-4">
           {menuItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActiveComponent(item.component)}
-              className="flex flex-col items-center gap-4 p-3 rounded-md hover:bg-gray-200 transition w-full"
+              className={`flex flex-col items-center gap-2 p-2 rounded-md hover:bg-gray-200 transition w-full ${
+                activeComponent === item.component && "bg-gray-200"
+              }`}
             >
               {item.icon}
               <span className="text-gray-800 font-medium text-[12px]">
@@ -34,7 +36,7 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      <div className="bg-white flex-1 p-6 col-span-11">
+      <div className="bg-white flex-1 p-6 md:col-span-11">
         {activeComponent === "Dashboard" && <EmptyComponent />}
         {activeComponent === "Orders" && <Dashboard />}
         {activeComponent === "Companies" && <EmptyComponent />}

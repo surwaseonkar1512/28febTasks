@@ -1,6 +1,8 @@
 import React from "react";
-
-const Invoice = () => {
+type Props = {
+  selectedOrder: any;
+};
+const Invoice = ({ selectedOrder }: Props) => {
   const data = {
     company: {
       name: "vState Filings LLC",
@@ -36,7 +38,7 @@ const Invoice = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 border rounded-lg shadow-lg bg-white">
+    <div className="md:w-full w-auto relative max-w-3xl mx-auto p-6 border rounded-lg shadow-lg bg-white overflow-x-auto">
       {/* Header */}
       <div className="flex justify-between items-center border-b pb-4 mb-4">
         <div>
@@ -141,7 +143,7 @@ const Invoice = () => {
       </div>
 
       {/* Watermark */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-10 text-6xl font-bold text-blue-500">
+      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-30 border border-gray-400 -rotate-45 text-[100px] font-bold text-blue-500">
         PAID
       </div>
 
